@@ -12,7 +12,7 @@ import static net.hamnaberg.json.examples.MyExtractors.personExtractor;
 
 public class ExtractMain {
     public static void main(String[] args) {
-        Person p1 = new Person("John Doe", Option.some(LocalDate.of(1981, 1, 1)), List.empty());
+        Person p1 = new Person("John Doe", Option.some(LocalDate.of(1982, 1, 1)), List.empty());
         System.out.println("p1 = " + p1);
         Json.JValue data = new JacksonStreamingParser().parse(ExtractMain.class.getResourceAsStream("/person.json"));
         System.out.println("data = " + data);

@@ -23,10 +23,12 @@ public class CodecMain {
                 apply("name", "birthDate", "interests");
 
         DecodeResult<Person> person3 = personcodec.fromJson(data);
+        System.out.println("person3 = " + person3);
         Option<Json.JValue> data2 = personcodec.toJson(person3.unsafeGet());
         System.out.println("data2 = " + data2);
         Person p2 = new Person("John Doe", Option.none(), List.empty());
         Json.JValue data3 = personcodec.toJson(p2).get();
+        System.out.println("data3 = " + data3);
 
         DecodeResult<Person> person4 = personcodec.fromJson(data3);
         System.out.println("person4 = " + person4);
