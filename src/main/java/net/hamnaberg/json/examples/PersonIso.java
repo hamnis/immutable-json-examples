@@ -1,9 +1,9 @@
 package net.hamnaberg.json.examples;
 
-import javaslang.Tuple3;
-import javaslang.collection.List;
-import javaslang.control.Option;
-import net.hamnaberg.json.Iso;
+import io.vavr.Tuple3;
+import io.vavr.collection.List;
+import io.vavr.control.Option;
+import net.hamnaberg.json.codec.Iso;
 
 import java.time.LocalDate;
 
@@ -17,6 +17,6 @@ public enum PersonIso implements Iso<Person, Tuple3<String, Option<LocalDate>, L
 
     @Override
     public Person reverseGet(Tuple3<String, Option<LocalDate>, List<String>> t) {
-        return t.transform(Person::new);
+        return t.apply(Person::new);
     }
 }

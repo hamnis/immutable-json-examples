@@ -1,33 +1,32 @@
 package net.hamnaberg.json.examples;
 
-import javaslang.collection.List;
-import javaslang.control.Option;
-import net.hamnaberg.json.Codecs;
-import net.hamnaberg.json.DecodeResult;
+import io.vavr.collection.List;
+import io.vavr.control.Option;
+import net.hamnaberg.json.codec.Codecs;
+import net.hamnaberg.json.codec.DecodeResult;
+import net.hamnaberg.json.codec.JsonCodec;
+import net.hamnaberg.json.jackson.JacksonStreamingParser;
 import net.hamnaberg.json.Json;
-import net.hamnaberg.json.JsonCodec;
-import net.hamnaberg.json.io.JacksonStreamingParser;
 
 public class CodecMain {
 
     public static void main(String[] args) {
 
-        Json.JValue data = new JacksonStreamingParser().parse(CodecMain.class.getResourceAsStream("/person.json"));
+        Json.JValue data = new JacksonStreamingParser().parseUnsafe(CodecMain.class.getResourceAsStream("/person.json"));
         System.out.println("data = " + data);
 
-        JsonCodec<Person> personcodec = Codecs.codec3(
+        JsonCodec<Person> personcodec = Codecs.codec(
                 PersonIso.INSTANCE,
-                Codecs.StringCodec,
-                Codecs.OptionCodec(MyCodecs.localDateJsonCodec),
-                Codecs.listCodec(Codecs.StringCodec)).
-                apply("name", "birthDate", "interests");
+                Codecs.CString.field("name"),
+                Codecs.OptionCodec(MyCodecs.localDateJsonCodec).field("birthDate"),
+                Codecs.listCodec(Codecs.CString).field("interests"));
 
         DecodeResult<Person> person3 = personcodec.fromJson(data);
         System.out.println("person3 = " + person3);
-        Option<Json.JValue> data2 = personcodec.toJson(person3.unsafeGet());
+        Json.JValue data2 = personcodec.toJson(person3.unsafeGet());
         System.out.println("data2 = " + data2);
         Person p2 = new Person("John Doe", Option.none(), List.empty());
-        Json.JValue data3 = personcodec.toJson(p2).get();
+        Json.JValue data3 = personcodec.toJson(p2);
         System.out.println("data3 = " + data3);
 
         DecodeResult<Person> person4 = personcodec.fromJson(data3);

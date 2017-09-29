@@ -27,12 +27,12 @@
     <dependency>
       <groupId>net.hamnaberg.json</groupId>
       <artifactId>immutable-json-codec</artifactId>
-      <version>3.6.0</version>
+      <version>6.0.0</version>
     </dependency>
     <dependency>
       <groupId>net.hamnaberg.json</groupId>
       <artifactId>immutable-json-jackson</artifactId>
-      <version>3.6.0</version>
+      <version>6.0.0</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -53,10 +53,10 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.1</version>
+          <version>3.7.0</version>
           <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
+            <source>1.9</source>
+            <target>1.9</target>
             <compilerArgs>
                 <arg>-Xlint:all</arg>
             </compilerArgs>
@@ -67,7 +67,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>2.5</version>
+          <version>3.0.2</version>
         </plugin>
       </plugins>
     </pluginManagement>
